@@ -11,10 +11,11 @@ defmodule Ueberauth.Strategy.TwitchTv.OAuth do
   use OAuth2.Strategy
 
   @defaults [
+    strategy: __MODULE__,
     site: "https://dev.twitch.tv",
     authorize_url: "https://id.twitch.tv/oauth2/authorize",
     token_url: "https://id.twitch.tv/oauth2/token",
-    grant_type: "client_credentials"
+    response_type: "token"
   ]
 
   @doc """
@@ -30,7 +31,6 @@ defmodule Ueberauth.Strategy.TwitchTv.OAuth do
   def client(opts \\ []) do
     opts = Keyword.merge(@defaults, Application.get_env(:ueberauth, Ueberauth.Strategy.TwitchTv.OAuth))
     |> Keyword.merge(opts)
-    IO.puts inspect opts
     OAuth2.Client.new(opts)
   end
 
@@ -46,7 +46,6 @@ defmodule Ueberauth.Strategy.TwitchTv.OAuth do
     headers = Dict.get(options, :headers, [])
     options = Dict.get(options, :options, [])
     client_options = Dict.get(options, :client_options, [])
-    IO.puts inspect client_options
     OAuth2.Client.get_token!(client(client_options), params, headers, options)
   end
 
