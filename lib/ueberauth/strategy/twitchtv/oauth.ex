@@ -11,7 +11,6 @@ defmodule Ueberauth.Strategy.TwitchTv.OAuth do
   use OAuth2.Strategy
 
   @defaults [
-    strategy: __MODULE__,
     site: "https://dev.twitch.tv",
     authorize_url: "https://id.twitch.tv/oauth2/authorize",
     token_url: "https://id.twitch.tv/oauth2/token",
