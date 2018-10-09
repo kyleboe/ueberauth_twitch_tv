@@ -63,13 +63,13 @@ defmodule Ueberauth.Strategy.TwitchTv do
 
       config :ueberauth, Ueberauth,
         providers: [
-          twitchtv: { Ueberauth.Strategy.TwitchtTv, [default_scope: "user,public_repo"] }
+          twitchtv: { Ueberauth.Strategy.TwitchtTv, [default_scope: "user:read:email"] }
         ]
 
-  Deafult is "user,public_repo"
+  Deafult is "user:read:email"
   """
   use Ueberauth.Strategy, uid_field: :login,
-                          default_scope: "user,public_repo",
+                          default_scope: "user:read:email",
                           oauth2_module: Ueberauth.Strategy.TwitchTv.OAuth
 
   alias Ueberauth.Auth.Info
@@ -81,7 +81,7 @@ defmodule Ueberauth.Strategy.TwitchTv do
 
   To customize the scope (permissions) that are requested by Twitch.Tv include them as part of your url:
 
-      "/auth/twitchtv?scope=user,public_repo,gist"
+      "/auth/twitchtv?scope=user:read:email,user:read:broadcast"
 
   You can also include a `state` param that TwitchTv will return to you.
   """
@@ -160,12 +160,12 @@ defmodule Ueberauth.Strategy.TwitchTv do
       name: user["name"],  ## this is your display name
       first_name: nil,
       last_name: nil,
-      nickname: nil, 
-      email: user["email"], 
-      location: nil, 
-      description: user["bio"], 
-      image: user["logo"], 
-      phone: nil, 
+      nickname: nil,
+      email: user["email"],
+      location: nil,
+      description: user["bio"],
+      image: user["logo"],
+      phone: nil,
       urls: %{
         self: user["self"]
       }
@@ -187,8 +187,8 @@ defmodule Ueberauth.Strategy.TwitchTv do
 
   defp fetch_user(conn, token) do
     conn = put_private(conn, :twitch_tv_token, token)
-    path = "https://api.twitch.tv/kraken/user"
-    headers = [Authorization: "OAuth #{token.access_token}"]
+    path = "https://api.twitch.tv/helix/user"
+    headers = [Authorization: "Bearer #{token.access_token}"]
     resp = OAuth2.Client.get(token, path, headers)
 
     case resp do
