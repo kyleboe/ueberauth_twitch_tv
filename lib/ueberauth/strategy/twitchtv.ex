@@ -194,6 +194,8 @@ defmodule Ueberauth.Strategy.TwitchTv do
     case resp do
       { :ok, %OAuth2.Response{status_code: status_code, body: user} } when status_code in 200..399 ->
         put_private(conn, :twitch_tv_user, user)
+      { :ok, %OAuth2.Response{status_code: status_code, body: body} } ->
+        set_errors!(conn, [error("OAuth2", reason)])
       { :error, %OAuth2.Error{reason: reason} } ->
         set_errors!(conn, [error("OAuth2", reason)])
     end

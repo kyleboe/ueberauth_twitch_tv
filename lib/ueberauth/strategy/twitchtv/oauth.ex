@@ -14,8 +14,7 @@ defmodule Ueberauth.Strategy.TwitchTv.OAuth do
     strategy: __MODULE__,
     site: "https://dev.twitch.tv",
     authorize_url: "https://id.twitch.tv/oauth2/authorize",
-    token_url: "https://id.twitch.tv/oauth2/token",
-    response_type: "token"
+    token_url: "https://id.twitch.tv/oauth2/token"
   ]
 
   @doc """
