@@ -186,6 +186,10 @@ defmodule Ueberauth.Strategy.TwitchTv do
   end
 
   defp fetch_user(conn, token) do
+    IO.puts "HERE IS THE CONN"
+    IO.puts inpsect conn
+    IO.puts "FETCHING USER"
+    IO.puts inspect token
     conn = put_private(conn, :twitch_tv_token, token)
     path = "https://api.twitch.tv/helix/user"
     headers = [Authorization: "Bearer #{token.access_token}"]
