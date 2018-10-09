@@ -189,7 +189,7 @@ defmodule Ueberauth.Strategy.TwitchTv do
     conn = put_private(conn, :twitch_tv_token, token)
     path = "https://api.twitch.tv/helix/user"
     headers = [Authorization: "Bearer #{token.access_token}"]
-    resp = OAuth2.Client.get(token, path, headers)
+    resp = OAuth2.AccessToken.get(token, path, headers)
 
     case resp do
       { :ok, %OAuth2.Response{status_code: status_code, body: user} } when status_code in 200..399 ->
