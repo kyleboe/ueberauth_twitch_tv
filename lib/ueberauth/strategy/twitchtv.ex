@@ -187,7 +187,7 @@ defmodule Ueberauth.Strategy.TwitchTv do
 
   defp fetch_user(conn, token) do
     IO.puts "HERE IS THE CONN"
-    IO.puts inpsect conn
+    IO.puts inspect conn
     IO.puts "FETCHING USER"
     IO.puts inspect token
     conn = put_private(conn, :twitch_tv_token, token)
