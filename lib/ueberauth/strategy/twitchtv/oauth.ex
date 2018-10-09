@@ -30,7 +30,7 @@ defmodule Ueberauth.Strategy.TwitchTv.OAuth do
   def client(opts \\ []) do
     opts = Keyword.merge(@defaults, Application.get_env(:ueberauth, Ueberauth.Strategy.TwitchTv.OAuth))
     |> Keyword.merge(opts)
-
+    inspect opts
     OAuth2.Client.new(opts)
   end
 
