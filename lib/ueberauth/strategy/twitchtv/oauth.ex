@@ -30,7 +30,7 @@ defmodule Ueberauth.Strategy.TwitchTv.OAuth do
   def client(opts \\ []) do
     opts = Keyword.merge(@defaults, Application.get_env(:ueberauth, Ueberauth.Strategy.TwitchTv.OAuth))
     |> Keyword.merge(opts)
-    inspect opts
+    IO.puts inspect opts
     OAuth2.Client.new(opts)
   end
 
@@ -46,7 +46,7 @@ defmodule Ueberauth.Strategy.TwitchTv.OAuth do
     headers = Dict.get(options, :headers, [])
     options = Dict.get(options, :options, [])
     client_options = Dict.get(options, :client_options, [])
-    inspect client_options
+    IO.puts inspect client_options
     OAuth2.Client.get_token!(client(client_options), params, headers, options)
   end
 
